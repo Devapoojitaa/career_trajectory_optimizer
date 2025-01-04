@@ -13,11 +13,14 @@ def home():
     return "Career Trajectory Optimizer API is running!"
 
 # Recommendation endpoint
-@app.route('/recommend', methods=['POST'])
+@app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
-    user_skills = request.json.get('skills', [])
-    matching_roles = data[data['Top Skills'].str.contains('|'.join(user_skills), na=False, case=False)]
-    return jsonify(matching_roles.to_dict(orient='records'))
+    if request.method == 'POST':
+        user_skills = request.json.get('skills', [])
+        matching_roles = data[data['Top Skills'].str.contains('|'.join(user_skills), na=False, case=False)]
+        return jsonify(matching_roles.to_dict(orient='records'))
+    return "Use POST with JSON data to get recommendations."
+
 
 # Serve frontend
 @app.route('/ui')
