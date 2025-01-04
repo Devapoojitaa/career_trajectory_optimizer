@@ -5,9 +5,22 @@
 </head>
 <body>
     <h1>Enter Your Skills</h1>
-    <form action="/results" method="post">
-        <input type="text" name="skills" placeholder="e.g., Python, Cloud">
-        <button type="submit">Get Recommendations</button>
+    <form id="skillForm">
+        <input type="text" id="skills" placeholder="e.g., Python, Cloud">
+        <button type="button" onclick="submitSkills()">Get Recommendations</button>
     </form>
+    <div id="result"></div>
+    <script>
+        async function submitSkills() {
+            const skills = document.getElementById('skills').value.split(',').map(skill => skill.trim());
+            const response = await fetch('/recommend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ skills })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
 </body>
 </html>
