@@ -4,12 +4,14 @@
     <title>Career Trajectory Optimizer</title>
 </head>
 <body>
-    <h1>Enter Your Skills</h1>
+    <h1>Career Trajectory Optimizer</h1>
     <form id="skillForm">
+        <label for="skills">Enter Your Skills:</label>
         <input type="text" id="skills" placeholder="e.g., Python, Cloud">
         <button type="button" onclick="submitSkills()">Get Recommendations</button>
     </form>
-    <div id="result"></div>
+    <h2>Recommendations:</h2>
+    <pre id="result"></pre>
     <script>
         async function submitSkills() {
             const skills = document.getElementById('skills').value.split(',').map(skill => skill.trim());
